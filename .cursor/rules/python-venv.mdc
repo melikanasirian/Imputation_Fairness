@@ -1,0 +1,39 @@
+---
+description: Use the project-local Python virtual environment for all Python work
+alwaysApply: true
+---
+
+# Project Python Environment
+
+Always use the project virtual environment at `.venv/` in the repository root.
+
+**Interpreter path:** `${workspaceFolder}/.venv/bin/python`
+
+## Shell commands
+
+Activate before running Python, pip, or notebooks:
+
+```bash
+source .venv/bin/activate
+# or
+conda activate /home/mnasiri7/ci-impute-melika/Imputation_Fairness/.venv
+```
+
+Run tools directly without activation:
+
+```bash
+.venv/bin/python script.py
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m jupyter notebook
+```
+
+## Agent rules
+
+- Never use system `python3` or `pip` for this project when `.venv/bin/python` exists.
+- Install packages only into `.venv` via `.venv/bin/pip install ...`.
+- Register the Jupyter kernel after env changes: `.venv/bin/python -m ipykernel install --user --name imputation-fairness --display-name "Imputation Fairness (.venv)"`.
+
+## Notes
+
+- `.venv` is a conda-managed environment (no sudo required on this machine).
+- Do not commit `.venv/`; dependencies are listed in `requirements.txt`.
